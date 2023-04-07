@@ -13,8 +13,13 @@ use Fossology\Lib\Application\RepositoryApi;
 use Fossology\Lib\Auth\Auth;
 use Fossology\Lib\Dao\LicenseDao;
 use Fossology\Lib\Plugin\DefaultPlugin;
+use Fossology\Lib\UI\Style;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+$GLOBALS['uivar'] = array(
+    'cardTitle' => _("card col-md-8 mx-auto"),
+);
 
 /**
  * \brief about page on UI
@@ -26,6 +31,8 @@ class AboutPage extends DefaultPlugin
   /** @var LicenseDao $licenseDao */
   private $licenseDao;
 
+  private $style;
+  
   public function __construct()
   {
     parent::__construct(self::NAME, array(
@@ -35,6 +42,7 @@ class AboutPage extends DefaultPlugin
     ));
 
     $this->licenseDao = $this->getObject('dao.license');
+    $this->style = new Style();
   }
 
   /**
@@ -43,7 +51,7 @@ class AboutPage extends DefaultPlugin
    */
   protected function handle(Request $request)
   {
-    $vars = array(
+    $vars = array_merge($this->style->getStyle(), array)(
         'licenseCount' => $this->licenseDao->getLicenseCount(),
         'project' => _("FOSSology"),
     );
