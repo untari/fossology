@@ -2,6 +2,25 @@
 
      SPDX-License-Identifier: GPL-2.0-only
 -->
+
+## Support dynamic CSS of bootstrap in FOSSology 
+This branch is a proof of concept for the idea [Support dynamic CSS of bootstrap in FOSSology]() as part of my application to GSOC2023. In this example I created a PHP file that maps CSS classes to PHP variables. Then, this variables are used in the twig template file for the about page in order to beautify the existing FOSSology UI with Bootstrap.
+
+1. The PHP file mapping variables to css classes:
+I created `Style.php` and it is located at `fossology/src/lib/php/UI`. `Style.php` it contains the class `Style`. This calss contains an array, the contructor initializes an array that contains the mapping and there is a method to retrieve this array.
+
+2. Beautifying the FOSSology:
+
+The array in `Style.php contains variables that are mapped to the bootstrap classes then these variables are used in the `about.html.twig` template.
+
+For example: I map ```'cardContainer' =>_("card mt-3 col-md-8 mx-auto"),``` in the array in `Style.php` then in `about.html.twig` I modify the css into ```class="{{ cardContainer }}"```. This would end up being ```class="card mt-3 col-md-8 mx-auto"```. You can see the difference before this is applyed and after right below:
+
+
+Current Fossology about page:
+![Screenshot from 2023-04-10 03-48-28(1)](https://user-images.githubusercontent.com/49097652/230882829-6cc91a8e-2178-44ed-99ea-6e1ec090f385.png)
+
+After applying dynamic boostrap CSS in the about page:
+![Screenshot 2023-04-10 at 04-17-54 About Fossology](https://user-images.githubusercontent.com/49097652/230885848-448fe233-bdf3-4c61-a0fb-592fbdb32843.png)
 # FOSSology
 
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/fossology/fossology)
